@@ -18,7 +18,7 @@ const Poem = () => {
     const handleClick = (id) => {
         let h = Data.filter((obj) => (obj.id === id))[0];
         console.log(h);
-        navigate('/poem', {state:h});
+        navigate('/site/poem', {state:h});
     }
 
 

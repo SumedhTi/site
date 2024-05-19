@@ -11,9 +11,9 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <Routes>
-        <Route path='/' element={<Landing />} />
-        <Route path='/poem' element={<PoemPage />} />
+      <Routes basename="/site/">
+        <Route path='/site' element={<Landing />} />
+        <Route path='/site/poem' element={<PoemPage />} />
       </Routes>
       {/* <Footer /> */}
     </div>
