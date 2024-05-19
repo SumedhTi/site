@@ -1,0 +1,117 @@
+h1{
+    text-align: center;
+    color: #fff;  
+    margin: 20px 0;  
+    font-size: 5em;
+}
+
+h2{
+    color: #fff;  
+    margin: 2px 0;  
+    font-size: 3em;
+}
+
+.hero{
+    background-image: url("https://scontent.fbom15-1.fna.fbcdn.net/v/t1.6435-9/160787757_10208034089368271_588253288330701838_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=klHnYTU3VzIQ7kNvgGj6fg0&_nc_ht=scontent.fbom15-1.fna&oh=00_AYA8BdBvlo4H0eBpJOI6EZOoT-2pH44QwiXE3oY9TRPATw&oe=666FDCFE");
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.main {
+    background-image: inherit;
+    display: flex; 
+    justify-content: center; 
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 20px; 
+    flex-direction: column;
+}
+
+.footer {
+    background-image: inherit;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+    padding: 20px; 
+}
+
+
+.hero h1.animated-name {
+    opacity: 0;  
+    text-align: center; 
+    min-height: 100vh; 
+    color: #fff;
+    animation: floatUp 2s ease-in-out forwards;  
+}
+
+
+.btn {
+    margin-top: 1rem;
+    display: inline-block;
+    padding: .8rem 3rem;
+    font-size: 1.7rem;
+    border: 1px solid #fff;
+    border-radius: .5rem;
+    cursor: pointer;
+
+}
+
+.btn:hover{
+    background: #fff;
+    color: var(--themeOrange);;
+}
+
+
+.box-container{
+    display: flex;
+    flex-basis: auto;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2rem;
+    padding: 4rem 3rem 3rem 3rem;
+    justify-content: space-evenly;
+    align-content: center
+}
+
+.box-container h3 {
+    font-size: 22px;
+    
+}
+
+.box-container .box {
+    padding: 2rem 2rem;
+    max-width: 20rem;
+    flex: auto;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    text-align: center;
+    font-size: 18px;
+    min-width: 150px;
+}
+
+
+@media (max-width: 400px) {
+    .box-container .box {
+        padding: 0.5rem 0.5rem;
+    }
+}
+
+
+
+@keyframes floatUp {
+    from { transform: translateY(30%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; } 
+}
