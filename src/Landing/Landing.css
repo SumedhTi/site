@@ -12,7 +12,7 @@ h2{
 }
 
 .hero{
-    background-image: url("https://scontent.fbom15-1.fna.fbcdn.net/v/t1.6435-9/160787757_10208034089368271_588253288330701838_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=klHnYTU3VzIQ7kNvgGj6fg0&_nc_ht=scontent.fbom15-1.fna&oh=00_AYA8BdBvlo4H0eBpJOI6EZOoT-2pH44QwiXE3oY9TRPATw&oe=666FDCFE");
+    background-image: url("https://scontent.fbom15-1.fna.fbcdn.net/v/t1.6435-9/160787757_10208034089368271_588253288330701838_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=5f2048&_nc_ohc=a6SWUJkx5ToQ7kNvgELQnRL&_nc_ht=scontent.fbom15-1.fna&oh=00_AYBNuNEgZVwqxsAh6aX84JacyxXMGS_slNtv4mrmdUVLjw&oe=669769FE");
     min-height: 100vh; 
     display: flex; 
     justify-content: center; 
