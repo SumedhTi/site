@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import "./poem.css";
-import { API } from "../api";
+import { Poem_API, Writing_API } from "../api";
 
 const PoemPage = () => {
     const location = useLocation();
@@ -25,7 +25,7 @@ const PoemPage = () => {
             temp = temp + 1;
         }
         setLikes(temp);
-        fetch(`${API}/${poem.id}`, {
+        fetch(`${Poem_API}/${poem.id}`, {
             method: 'PATCH',
             headers: {
             'Accept': 'application/json',
@@ -37,15 +37,42 @@ const PoemPage = () => {
 
     const updatePoem = () => {
         delete poem.confirm;
-        fetch(`${API}/${poem.id}`, {
-            method: 'PATCH',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(poem)
-        })
-        .then((res) => {if(res.ok){navigate("/site/")}});
+        let request;
+        if(poem.poem){
+            request = Poem_API;
+        }else{
+            request = Writing_API;
+        }
+        delete poem.poem;
+        if(poem.new){
+            delete poem.new
+            fetch(`${request}`, {
+                method: 'POST',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(poem)
+            })
+            .then((res) => {if(res.ok){navigate("/site/")}});
+        }else{
+            fetch(`${request}/${poem.id}`, {
+                method: 'PATCH',
+                headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(poem)
+            })
+            .then((res) => {if(res.ok){navigate("/site/")}});
+        }
+    }
+
+    const navigateBack = () => {
+        if(data.new){
+            data.id = "";
+        }
+        navigate("/site/add", {state:data})
     }
 
     return(
@@ -62,7 +89,7 @@ const PoemPage = () => {
                 ))}
                 {poem.confirm
                 ?<> 
-                    <button className="button" onClick={() => navigate("/site/add", {state:data})}>Back</button>
+                    <button className="button" onClick={() => navigateBack()}>Back</button>
                     <button className="button" onClick={() => updatePoem()}>Confirm</button>
                 </>
                 :<button onClick={() => handleClick()}> 

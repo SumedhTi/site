@@ -7,21 +7,26 @@ import PoemPage from './Poem/PoemPage';
 import Edit from './Edit/edit';
 import Admin from './admin';
 import { Context } from './Context';
-import { API } from './api';
+import { Poem_API, Writing_API } from './api';
 import { useEffect, useState } from 'react';
 
 function App() {
-  const [Data, setData] = useState([]); 
+  const [PoemData, setPoemData] = useState([]); 
+  const [WritingData, setWritingData] = useState([]);
 
   useEffect(() => {
-      fetch(API, { method: "Get" })
+      fetch(Poem_API, { method: "Get" })
       .then(res => res.json())
-      .then(res => setData(res));        
+      .then(res => setPoemData(res));
+
+      fetch(Writing_API, { method: "Get" })
+      .then(res => res.json())
+      .then(res => setWritingData(res));        
   }, []);
   
 
   return (
-    <Context.Provider value={Data}>
+    <Context.Provider value={{PoemData, WritingData}}>
       <div className="App">
         <Navbar />
         <Routes basename="/site/">

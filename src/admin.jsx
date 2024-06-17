@@ -21,14 +21,14 @@ const Admin = () => {
     useEffect(() => {
         if(localStorage.getItem("login")){
             let pass = localStorage.getItem("login");
-            if(pass == "a"){
+            if(pass === "a"){
                 setloggedin(true);
             }
         }
     }, [])
 
     function handleSubmit(){
-        if(password == "a"){
+        if(password === "a"){
             localStorage.setItem("login", password);
             navigate("/site/");
         }else{
@@ -41,7 +41,8 @@ const Admin = () => {
             {loggedin
             ?<div>
                 <button className="button" onClick={() => {localStorage.removeItem("login"); navigate("/site/");}}>Log out</button> 
-                <button className="button" onClick={() => navigate("/site/add", {state:tamplate})} >ADD NEW POEM</button>
+                <button className="button" onClick={() => navigate("/site/add", {state:{ ...tamplate, poem:true}})} >ADD NEW POEM</button>
+                <button className="button" onClick={() => navigate("/site/add", {state:{ ...tamplate, poem:false}})} >ADD NEW WRITTING</button>
             </div>
             :<div>
                 <h2>Login</h2>
