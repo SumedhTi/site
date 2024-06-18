@@ -7,26 +7,38 @@ import PoemPage from './Poem/PoemPage';
 import Edit from './Edit/edit';
 import Admin from './admin';
 import { Context } from './Context';
-import { Poem_API, Writing_API } from './api';
 import { useEffect, useState } from 'react';
+import { getAllData, getToken } from './mongo';
 
 function App() {
   const [PoemData, setPoemData] = useState([]); 
   const [WritingData, setWritingData] = useState([]);
+  const [token, setToken] = useState("");
+  
+  async function Token(){
+    return getToken().then((a) => {setToken(a.access_token); return a.access_token});
+  }
+
+
+  async function fetchData(token){
+    getAllData(token, "poem").then((a) => {
+      setPoemData(a.documents);
+    })
+    getAllData(token, "writing").then((a) => {
+      setWritingData(a.documents);
+    })
+  }
 
   useEffect(() => {
-      fetch(Poem_API, { method: "Get" })
-      .then(res => res.json())
-      .then(res => setPoemData(res));
-
-      fetch(Writing_API, { method: "Get" })
-      .then(res => res.json())
-      .then(res => setWritingData(res));        
-  }, []);
+      Token().then((t) => {
+        fetchData(t);
+      })
+      console.log("fetcing");
+  },[])
   
 
   return (
-    <Context.Provider value={{PoemData, WritingData}}>
+    <Context.Provider value={{PoemData, WritingData, token, setPoemData, setWritingData}}>
       <div className="App">
         <Navbar />
         <Routes basename="/site/">

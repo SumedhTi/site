@@ -39,20 +39,18 @@ const Landing = () => {
                         <h3>{item.title}</h3>
                         <p>{item.text[0]}</p>
                         <p>{item.text[1]}</p>
-                        <p>{item.text[2] + " ...."}</p>
+                        <p>{item.text[2] + " . . . ."}</p>
                         {/* <button className="btn" onClick={() => handleClick(item.cost)}>Book Now</button> */}
                         </div>
                     ))}
                 </div> 
-                <h2>मेरा लेख</h2>
+                <h2>मेरी लेखनी</h2>
                 <div className="box-container">
                     {WritingData.map((item) => (
                         <div className="box" key={item.id} onClick={() => handleClick(item.id, "writing")}>
                         {/* <img src={item.img} width="300px" alt="" /> */}
                         <h3>{item.title}</h3>
-                        <p>{item.text[0]}</p>
-                        <p>{item.text[1]}</p>
-                        <p>{item.text[2] + " ...."}</p>
+                        <p>{item.text[0].substring(0,100) + " . . . ."}</p>
                         {/* <button className="btn" onClick={() => handleClick(item.cost)}>Book Now</button> */}
                         </div>
                     ))}

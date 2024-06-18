@@ -1,78 +1,83 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import "./poem.css";
-import { Poem_API, Writing_API } from "../api";
+import { addNewData, editData, editLikes } from "../mongo";
+import { Context } from "../Context";
+
 
 const PoemPage = () => {
     const location = useLocation();
-    const data = location.state;
-    const [poem, setPoem] = useState({id:null,name:"Loading",text:["Loading"],img:[],date:""});
+    const poem = location.state;
     const [likes, setLikes] = useState(0);
-    const [clicked, setClicked] = useState(false);
+    const [clicked, setClicked] = useState(getLikes());
     const navigate = useNavigate();
- 
+    const { token } = useContext(Context);
+
+    function getLikes(){
+        if (localStorage.getItem("liked")){
+            let dict = JSON.parse(localStorage.getItem("liked"));
+            console.log(dict[poem.id]);
+            return dict[poem.id];
+        }
+        return false;
+    }
+
+    function storeLike(){
+        let dict = JSON.parse(localStorage.getItem("liked")) || {};
+        dict[poem.id] = !clicked;
+        localStorage.setItem("liked", JSON.stringify(dict));
+    }
+
     useEffect(() => {
-        setPoem(data);
-        setLikes(data.likes);
-    }, [data])
+        setLikes(poem.likes);
+    }, [])
 
     const handleClick = () => {
+        storeLike();
+        console.log("here");
         setClicked(!clicked);
+        let request;
+        if(poem.poem){
+            request = "poem";
+        }else{
+            request = "writing";
+        }
         let temp = likes;
         if(clicked){
             temp = temp - 1;
+            editLikes(token, request, poem.id, -1);
         }else{
             temp = temp + 1;
+            editLikes(token, request, poem.id, 1);
         }
         setLikes(temp);
-        fetch(`${Poem_API}/${poem.id}`, {
-            method: 'PATCH',
-            headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ...poem, likes: temp})
-        });
     }
 
     const updatePoem = () => {
+        delete poem._id
         delete poem.confirm;
         let request;
         if(poem.poem){
-            request = Poem_API;
+            request = "poem";
         }else{
-            request = Writing_API;
+            request = "writing";
         }
         delete poem.poem;
         if(poem.new){
             delete poem.new
-            fetch(`${request}`, {
-                method: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(poem)
-            })
+            addNewData(token, poem, request)
             .then((res) => {if(res.ok){navigate("/site/")}});
         }else{
-            fetch(`${request}/${poem.id}`, {
-                method: 'PATCH',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(poem)
-            })
+            editData(token, poem, request, poem.id)
             .then((res) => {if(res.ok){navigate("/site/")}});
         }
     }
 
     const navigateBack = () => {
-        if(data.new){
-            data.id = "";
+        if(poem.new){
+            poem.id = "";
         }
-        navigate("/site/add", {state:data})
+        navigate("/site/add", {state:poem})
     }
 
     return(
