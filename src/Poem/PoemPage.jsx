@@ -17,14 +17,14 @@ const PoemPage = () => {
         if (localStorage.getItem("liked")){
             let dict = JSON.parse(localStorage.getItem("liked"));
             console.log(dict[poem.id]);
-            return dict[poem.id];
+            return dict[poem.poem+""+poem.id];
         }
         return false;
     }
 
     function storeLike(){
         let dict = JSON.parse(localStorage.getItem("liked")) || {};
-        dict[poem.id] = !clicked;
+        dict[poem.poem+""+poem.id] = !clicked;
         localStorage.setItem("liked", JSON.stringify(dict));
     }
 
