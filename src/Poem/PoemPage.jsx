@@ -82,7 +82,6 @@ const PoemPage = () => {
 
     return(
         <>
-        <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> 
         <div className="container">
             <div className="content">
                 <div>
@@ -102,9 +101,11 @@ const PoemPage = () => {
                     {likes} 
                 </button>}
             </div>
-            {poem.img.map((item, index) => (
-                    <img key={index} src={item} alt=""/>
-            ))}
+            <div className="image-container">
+                {poem.img.map((item, index) => (
+                        <img key={index} src={item} alt=""/>
+                ))}
+            </div>
         </div>
         </>
     );

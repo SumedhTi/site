@@ -1,10 +1,22 @@
 .container {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-evenly;
     align-content: center; 
-    background-color: rgb(141, 233, 248);
+    min-height: 100vh;    
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 50%),
+        url('https://img.freepik.com/free-photo/paperboard-texture_95678-72.jpg'); 
+    border: 3px solid #c2b280; 
+    box-shadow: 0 80px 50px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.8);
 }
+
+.image-container {
+    display: flex;
+    gap: 2rem;
+    flex-direction: column;
+    justify-content: center;    
+}
+
 
 .date{
     padding-right: 10px;
@@ -18,14 +30,17 @@
 .content h2{
     color: black;
     padding-bottom: 2rem;
+    padding-top: 30px;
     text-align: center;
 }
   
-.container img {
-    flex: 0 1 30%;
-    padding: 30px;
+.image-container img {
+    padding: 10px;
     width: 100%;
-    height: auto;
+    height: 30vw;     
+    max-height: 500px;              
+    object-fit: cover;              
+    display: block;
 }
 
 button { 
@@ -60,12 +75,14 @@ button {
 }
 
 
-@media (max-width: 1200px) {
+@media (max-width: 1000px) {
     .container {
-      flex-direction: column; 
+      flex-direction: row;
+      flex-wrap: wrap; 
     }
-    .container img {
+    .image-container img {
       order: 2;
       margin-top: 30px;
+      height: 60vw;
     }
 }
