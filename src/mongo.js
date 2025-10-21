@@ -1,4 +1,4 @@
-export const API = "http://localhost:3000/";
+export const API = "https://site-9f5n.onrender.com/";
 
 export async function addNewData(poem, db) {
     const contentResponse = await fetch(API + 'add',{
