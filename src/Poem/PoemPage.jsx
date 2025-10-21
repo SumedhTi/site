@@ -45,10 +45,10 @@ const PoemPage = () => {
         let temp = likes;
         if(clicked){
             temp = temp - 1;
-            editLikes(token, request, poem.id, -1);
+            editLikes(request, poem.id, -1);
         }else{
             temp = temp + 1;
-            editLikes(token, request, poem.id, 1);
+            editLikes(request, poem.id, 1);
         }
         setLikes(temp);
     }
@@ -65,10 +65,10 @@ const PoemPage = () => {
         delete poem.poem;
         if(poem.new){
             delete poem.new
-            addNewData(token, poem, request)
+            addNewData(poem, request)
             .then((res) => {if(res.ok){navigate("/site/")}});
         }else{
-            editData(token, poem, request, poem.id)
+            editData(poem, request, poem.id)
             .then((res) => {if(res.ok){navigate("/site/")}});
         }
     }

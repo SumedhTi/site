@@ -1,51 +1,51 @@
-import './App.css';
-import Navbar from './NavBar/navbar';
-import { Route, Routes } from 'react-router-dom';
-import Landing from './Landing/Landing';
+import "./App.css";
+import Navbar from "./NavBar/navbar";
+import { Route, Routes } from "react-router-dom";
+import Landing from "./Landing/Landing";
 // import Footer from './Footer/Fotter';
-import PoemPage from './Poem/PoemPage';
-import Edit from './Edit/edit';
-import Admin from './admin';
-import { Context } from './Context';
-import { useEffect, useState } from 'react';
-import { getAllData, getToken } from './mongo';
+import PoemPage from "./Poem/PoemPage";
+import Edit from "./Edit/edit";
+import Admin from "./admin";
+import { Context } from "./Context";
+import { useEffect, useState } from "react";
+import { API } from "./mongo";
 
 function App() {
-  const [PoemData, setPoemData] = useState([]); 
+  const [PoemData, setPoemData] = useState([]);
   const [WritingData, setWritingData] = useState([]);
-  const [token, setToken] = useState("");
-  
-  async function Token(){
-    return getToken().then((a) => {setToken(a.access_token); return a.access_token});
-  }
 
-
-  async function fetchData(token){
-    getAllData(token, "poem").then((a) => {
-      setPoemData(a.documents);
+  async function fetchData() {
+    fetch(API + "getAll", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
     })
-    getAllData(token, "writing").then((a) => {
-      setWritingData(a.documents);
-    })
+      .then((res) => {
+        if(res.ok){
+          return res.json()
+        } 
+      })
+      .then((res) => {
+        setPoemData(res.poems);
+        setWritingData(res.writings)
+      });
   }
 
   useEffect(() => {
-      Token().then((t) => {
-        fetchData(t);
-      })
-      console.log("fetcing");
-  },[])
-  
+    fetchData();
+    console.log("fetcing");
+  }, []);
 
   return (
-    <Context.Provider value={{PoemData, WritingData, token, setPoemData, setWritingData}}>
+    <Context.Provider
+      value={{ PoemData, WritingData, setPoemData, setWritingData }}
+    >
       <div className="App">
         <Navbar />
         <Routes basename="/site/">
-          <Route path='/site' element={<Landing />} />
-          <Route path='/site/poem' element={<PoemPage />} />
-          <Route path='/site/add' element={<Edit />} />
-          <Route path='/site/admin' element={<Admin />} />
+          <Route path="/site" element={<Landing />} />
+          <Route path="/site/poem" element={<PoemPage />} />
+          <Route path="/site/add" element={<Edit />} />
+          <Route path="/site/admin" element={<Admin />} />
         </Routes>
         {/* <Footer /> */}
       </div>
