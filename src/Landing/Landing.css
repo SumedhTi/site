@@ -12,7 +12,7 @@ h2{
 }
 
 .hero{
-    background-image: url("https://i.ibb.co/phLZ2YX/IMG-20241008-WA0013.jpg");
+    background-image: url("/public/images/hero_image.jpg");
     min-height: 100vh; 
     display: flex; 
     justify-content: center; 
