@@ -28,6 +28,10 @@ const poemdb = mongoose.connection.useDb("poem");
 const Poem = poemdb.model("poem", poem);
 const Writing = poemdb.model("writing", poem);
 
+app.head("/ping", (req, res) => {
+  res.status(200).send("pong");
+});
+
 app.get("/getAll", async (req, res) => {
   const poems = await Poem.find();
   const writings = await Writing.find();
