@@ -27,8 +27,15 @@ const poem = new mongoose.Schema({
 const poemdb = mongoose.connection.useDb("poem");
 const Poem = poemdb.model("poem", poem);
 const Writing = poemdb.model("writing", poem);
+let countDown = 100;
 
 app.head("/ping", (req, res) => {
+  if(countDown <= 0){
+    countDown = 100;
+    Poem.find();
+    console.log("Sent Request"); 
+  }
+  countDown -= 1;
   res.status(200).send("pong");
 });
 
