@@ -1,24 +1,20 @@
 import { supabase } from "./supabaseClient";
 
-export async function fetchData(setPoemData, setWritingData) {
+export async function fetchData(setPoemData) {
   const { data, error } = await supabase
     .from("poems")
     .select("*")
     .order("date", { ascending: true });
 
   if (error) throw error;
-
-  const poems = data.filter(item => item.isPoem);
-  const writings = data.filter(item => !item.isPoem);
-
-  setPoemData(poems);
-  setWritingData(writings);
+  data.forEach((item, index) => {
+    item.id = index + 1;
+  });
+  setPoemData(data);
 }
 
 export async function addNewData(poem) {
-  const { data, error } = await supabase
-    .from("poems")
-    .insert([poem]);
+  const { data, error } = await supabase.from("poems").insert([poem]);
 
   if (error) throw error;
 
@@ -39,21 +35,8 @@ export async function editData(updatedData, id) {
 export async function editLikes(id, inc) {
   const { error } = await supabase.rpc("increment_likes", {
     row_id: id,
-    inc: inc
+    inc: inc,
   });
 
   if (error) throw error;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

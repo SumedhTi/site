@@ -1,13 +1,229 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@400;500;600&family=Homemade+Apple&display=swap');
+
+@import "tailwindcss";
+@config "../tailwind.config.js";
+
+
+@layer base {
+  :root {
+    /* Vintage Journal Palette - day */
+    --background: 36 28% 88%;
+    --foreground: 25 35% 18%;
+
+    --paper: 36 38% 84%;
+    --paper-deep: 30 32% 74%;
+    --paper-shadow: 25 30% 58%;
+    --ink: 22 45% 14%;
+    --ink-soft: 25 30% 28%;
+    --ink-faded: 28 22% 42%;
+    --amber: 35 65% 48%;
+    --amber-soft: 38 55% 62%;
+    --sepia: 28 38% 38%;
+
+    --card: 36 38% 84%;
+    --card-foreground: 25 35% 18%;
+    --popover: 36 38% 84%;
+    --popover-foreground: 25 35% 18%;
+
+    --primary: 22 45% 14%;
+    --primary-foreground: 36 38% 90%;
+
+    --secondary: 30 28% 72%;
+    --secondary-foreground: 25 35% 18%;
+
+    --muted: 30 22% 76%;
+    --muted-foreground: 28 22% 42%;
+
+    --accent: 35 55% 55%;
+    --accent-foreground: 22 45% 14%;
+
+    --destructive: 0 55% 35%;
+    --destructive-foreground: 36 38% 90%;
+
+    --border: 28 25% 60%;
+    --input: 28 25% 60%;
+    --ring: 35 55% 45%;
+
+    --radius: 0.25rem;
+
+    --gradient-sunlight: radial-gradient(ellipse at top, hsl(45 70% 80% / 0.5), transparent 60%);
+    --gradient-vignette: radial-gradient(ellipse at center, transparent 40%, hsl(25 40% 12% / 0.35) 100%);
+    --gradient-page: linear-gradient(180deg, hsl(36 42% 86%) 0%, hsl(32 32% 78%) 100%);
+
+    --shadow-paper: 0 1px 2px hsl(25 30% 20% / 0.15), 0 8px 24px hsl(25 30% 20% / 0.18), 0 18px 40px hsl(25 30% 20% / 0.12);
+    --shadow-deep: 0 4px 8px hsl(25 30% 12% / 0.35), 0 20px 50px hsl(25 30% 12% / 0.4);
+
+    --sidebar-background: 36 38% 84%;
+    --sidebar-foreground: 25 35% 18%;
+    --sidebar-primary: 22 45% 14%;
+    --sidebar-primary-foreground: 36 38% 90%;
+    --sidebar-accent: 30 28% 72%;
+    --sidebar-accent-foreground: 25 35% 18%;
+    --sidebar-border: 28 25% 60%;
+    --sidebar-ring: 35 55% 45%;
+  }
+
+  /* Night / lamp-light reading - slightly warmer, deeper */
+  .dusk {
+    --background: 28 28% 16%;
+    --foreground: 36 38% 82%;
+
+    --paper: 28 28% 22%;
+    --paper-deep: 25 25% 18%;
+    --paper-shadow: 22 30% 10%;
+    --ink: 36 42% 86%;
+    --ink-soft: 36 30% 76%;
+    --ink-faded: 32 22% 60%;
+    --amber: 38 75% 60%;
+    --amber-soft: 40 60% 55%;
+    --sepia: 32 30% 55%;
+
+    --card: 28 28% 22%;
+    --card-foreground: 36 38% 82%;
+    --popover: 28 28% 22%;
+    --popover-foreground: 36 38% 82%;
+
+    --primary: 36 38% 82%;
+    --primary-foreground: 22 45% 14%;
+    --secondary: 25 22% 28%;
+    --secondary-foreground: 36 38% 82%;
+    --muted: 25 18% 26%;
+    --muted-foreground: 32 22% 60%;
+    --accent: 38 75% 60%;
+    --accent-foreground: 22 45% 14%;
+    --border: 28 18% 32%;
+    --input: 28 18% 32%;
+    --ring: 38 75% 60%;
+
+    --gradient-sunlight: radial-gradient(ellipse at top, hsl(35 80% 55% / 0.18), transparent 65%);
+    --gradient-vignette: radial-gradient(ellipse at center, transparent 35%, hsl(25 50% 4% / 0.7) 100%);
+    --gradient-page: linear-gradient(180deg, hsl(28 28% 24%) 0%, hsl(25 25% 18%) 100%);
+  }
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body, #root {
+    min-height: 100%;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'EB Garamond', Georgia, serif;
+    font-feature-settings: "liga", "dlig", "onum";
+    -webkit-font-smoothing: antialiased;
+    background-color: hsl(var(--background));
+    background-image:
+      var(--gradient-sunlight),
+      url('/src/assets/paper-texture.jpg');
+    background-size: cover, 600px 600px;
+    background-blend-mode: multiply, normal;
+    background-attachment: fixed, fixed;
+  }
+}
+
+@layer utilities {
+  .font-serif-display {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-feature-settings: "liga", "dlig";
+  }
+  .font-serif-body {
+    font-family: 'EB Garamond', Georgia, serif;
+  }
+  .font-handwritten {
+    font-family: 'Caveat', cursive;
+  }
+  .font-handwritten-ink {
+    font-family: 'Homemade Apple', cursive;
+  }
+
+  /* Paper surfaces */
+  .paper-surface {
+    background-color: hsl(var(--paper));
+    background-image:
+      url('/src/assets/paper-texture1.jpg'),
+      radial-gradient(ellipse at 20% 10%, hsl(45 70% 80% / 0.35), transparent 55%);
+    background-size: cover, cover;
+    background-blend-mode: multiply, normal;
+    box-shadow: var(--shadow-paper);
+    position: relative;
+  }
+  .paper-surface::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gradient-vignette);
+    pointer-events: none;
+    mix-blend-mode: multiply;
+    opacity: 0.55;
+  }
+  .paper-grain::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.25  0 0 0 0 0.18  0 0 0 0 0.12  0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.35'/></svg>");
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+
+  /* Torn / deckle edge */
+  .deckle-edge {
+    --deckle: polygon(
+      0% 2%, 4% 0%, 9% 1.5%, 15% 0.5%, 22% 2%, 30% 0.5%, 38% 1.8%, 46% 0.4%, 54% 1.6%, 62% 0.6%, 70% 1.8%, 78% 0.5%, 86% 1.7%, 94% 0.6%, 100% 2%,
+      99% 8%, 100% 16%, 98.5% 24%, 100% 32%, 99% 40%, 100% 48%, 98.5% 56%, 100% 64%, 99% 72%, 100% 80%, 98.5% 88%, 100% 95%,
+      96% 100%, 88% 98.5%, 80% 100%, 72% 99%, 64% 100%, 56% 98.5%, 48% 100%, 40% 99%, 32% 100%, 24% 98.5%, 16% 100%, 8% 99%, 2% 100%,
+      0.5% 92%, 0% 84%, 1.5% 76%, 0% 68%, 1% 60%, 0% 52%, 1.5% 44%, 0% 36%, 1% 28%, 0% 20%, 1.5% 12%
+    );
+    clip-path: var(--deckle);
+  }
+
+  .ink-underline {
+    background-image: linear-gradient(180deg, transparent 92%, hsl(var(--ink) / 0.7) 92%, hsl(var(--ink) / 0.7) 95%, transparent 95%);
+    background-repeat: no-repeat;
+  }
+
+  .text-shadow-ink {
+    text-shadow: 0 1px 0 hsl(var(--paper) / 0.4);
+  }
+
+  /* Drop cap */
+  .drop-cap::first-letter {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 600;
+    float: left;
+    font-size: 4.2rem;
+    line-height: 0.85;
+    padding: 0.4rem 0.6rem 0 0;
+    color: hsl(var(--ink));
+  }
+
+  /* Animations */
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes ink-bleed {
+    from { opacity: 0; filter: blur(6px); letter-spacing: 0.04em; }
+    to { opacity: 1; filter: blur(0); letter-spacing: 0; }
+  }
+  @keyframes page-turn {
+    from { opacity: 0; transform: rotateY(-14deg) translateX(-10px); transform-origin: left center; }
+    to { opacity: 1; transform: rotateY(0) translateX(0); }
+  }
+  @keyframes lift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-3px); }
+  }
+
+  .animate-fade-up { animation: fade-up 0.3s ease-out both; }
+  .animate-ink-bleed { animation: ink-bleed 1.5s ease-out both; }
+  .animate-page-turn { animation: page-turn 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.25s; }
+  .delay-3 { animation-delay: 0.4s; }
+  .delay-4 { animation-delay: 0.55s; }
+  .delay-5 { animation-delay: 0.7s; }
 }
