@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { json, useLocation, useNavigate } from "react-router-dom";
 import "./poem.css";
-import { addNewData, editData, editLikes } from "../mongo";
+import { addNewData, editData, editLikes } from "../dataHandeler/dataHandeler";
 import { Context } from "../Context";
 
 
@@ -88,7 +88,7 @@ const PoemPage = () => {
                     <h2>{poem.title}</h2>
                     <h4 className="date">{poem.date}</h4>
                 </div>
-                {poem.text.map((item, index) => (
+                {poem.content.map((item, index) => (
                     <p key={index}>{item}</p>
                 ))}
                 {poem.confirm
@@ -102,7 +102,7 @@ const PoemPage = () => {
                 </button>}
             </div>
             <div className="image-container">
-                {poem.img.map((item, index) => (
+                {poem.images.map((item, index) => (
                         <img key={index} src={item} alt=""/>
                 ))}
             </div>

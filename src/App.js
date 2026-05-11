@@ -8,30 +8,14 @@ import Edit from "./Edit/edit";
 import Admin from "./admin";
 import { Context } from "./Context";
 import { useEffect, useState } from "react";
-import { API } from "./mongo";
+import { fetchData } from "./dataHandeler/dataHandeler";
 
 function App() {
   const [PoemData, setPoemData] = useState([]);
   const [WritingData, setWritingData] = useState([]);
 
-  async function fetchData() {
-    fetch(API + "getAll", {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        if(res.ok){
-          return res.json()
-        } 
-      })
-      .then((res) => {
-        setPoemData(res.poems);
-        setWritingData(res.writings)
-      });
-  }
-
   useEffect(() => {
-    fetchData();
+    fetchData(setPoemData, setWritingData);
     console.log("fetcing");
   }, []);
 

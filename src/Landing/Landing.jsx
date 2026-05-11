@@ -37,9 +37,9 @@ const Landing = () => {
                         <div className="box" key={item.id} onClick={() => handleClick(item.id, "poem")}>
                         {/* <img src={item.img} width="300px" alt="" /> */}
                         <h3>{item.title}</h3>
-                        <p>{item.text[0]}</p>
-                        <p>{item.text[1]}</p>
-                        <p>{item.text[2] + " . . . ."}</p>
+                        <p>{item.content[0]}</p>
+                        <p>{item.content[1]}</p>
+                        <p>{item.content[2] + " . . . ."}</p>
                         {/* <button className="btn" onClick={() => handleClick(item.cost)}>Book Now</button> */}
                         </div>
                     ))}
@@ -50,7 +50,7 @@ const Landing = () => {
                         <div className="box" key={item.id} onClick={() => handleClick(item.id, "writing")}>
                         {/* <img src={item.img} width="300px" alt="" /> */}
                         <h3>{item.title}</h3>
-                        <p>{item.text[0].substring(0,100) + " . . . ."}</p>
+                        <p>{item.content[0].substring(0,100) + " . . . ."}</p>
                         {/* <button className="btn" onClick={() => handleClick(item.cost)}>Book Now</button> */}
                         </div>
                     ))}
